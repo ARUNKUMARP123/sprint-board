@@ -12,6 +12,65 @@ function App() {
   const [editingId, setEditingId] = useState(null);
   const [draggedIndex, setDraggedIndex] = useState(null);
 
+// Add or remove columns
+  const updateColumns = (count) => {
+    let updated = [...columns];
+
+    if (count > updated.length) {
+      for (let i = updated.length + 1; i <= count; i++) {
+        updated.push({
+          id: Date.now() + i,
+          title: `Column ${i}`,
+          color: "#f8f9fa",
+        });
+      }
+    } else {
+      updated = updated.slice(0, count);
+    }
+
+    setColumns(updated);
+    setColumnCount(count);
+  };
+
+  // Edit column
+  const handleEdit = (id, field, value) => {
+    const updated = columns.map((col) =>
+      col.id === id ? { ...col, [field]: value } : col
+    );
+
+    setColumns(updated);
+  };
+
+  // Move columns
+  const moveColumn = (currentIndex, newIndex) => {
+    if (newIndex < 0 || newIndex >= columns.length) return;
+
+    const updated = [...columns];
+
+    const [removed] = updated.splice(currentIndex, 1);
+
+    updated.splice(newIndex, 0, removed);
+
+    setColumns(updated);
+  };
+
+  // Drag Start
+  const handleDragStart = (index) => {
+    setDraggedIndex(index);
+  };
+
+  // Drop
+  const handleDrop = (index) => {
+    const updated = [...columns];
+
+    const draggedItem = updated[draggedIndex];
+
+    updated.splice(draggedIndex, 1);
+
+    updated.splice(index, 0, draggedItem);
+
+    setColumns(updated);
+  };
 
 
   return (
