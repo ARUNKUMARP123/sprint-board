@@ -76,9 +76,9 @@ Edit functionality
 Background color customization
 
 Team Members:
-P.Arun Kumar
-L.Mohamed Abdullah
-S.Surya
+Arun Kumar P
+Mohamed Abdullah L
+Surya S
 
 
 
